@@ -10,7 +10,7 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: windows
 
     steps:
     # Step 1: Checkout code
@@ -29,7 +29,7 @@ jobs:
         npm install
 
     # Step 4: Run tests using Maven or Gradle (TestNG/JUnit)
-    - name: Run JUnit Tests
+    - name: Run Java Tests
       run: |
         mvn test  # Or gradle test if using Gradle
 
