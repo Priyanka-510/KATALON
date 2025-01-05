@@ -1,0 +1,41 @@
+name: Run Katalon Recorder Test Cases
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Checkout code
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    # Step 2: Set up JDK (for JUnit/TestNG)
+    - name: Set up JDK 11
+      uses: actions/setup-java@v2
+      with:
+        java-version: '11'
+
+    # Step 3: Install dependencies (if any)
+    - name: Install dependencies
+      run: |
+        npm install
+
+    # Step 4: Run tests using Maven or Gradle (TestNG/JUnit)
+    - name: Run JUnit Tests
+      run: |
+        mvn test  # Or gradle test if using Gradle
+
+    # Step 5: Upload the test results (JUnit report as artifact)
+    - name: Upload test results
+      uses: actions/upload-artifact@v2
+      with:
+        name: test-results
+        path: target/surefire-reports/*.xml
